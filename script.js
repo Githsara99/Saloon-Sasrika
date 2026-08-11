@@ -32,39 +32,77 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---------- Build gallery (images/image1.jpg … imageN.jpg) ---------- */
-  const galleryGrid = document.getElementById('galleryGrid');
-  const galleryUrls = [];
+/* ---------- Build gallery (images/image1.JPG … imageN.JPG) ---------- */
+const galleryGrid = document.getElementById('galleryGrid');
+const galleryUrls = [];
 
-  if (galleryGrid) {
-    const frag = document.createDocumentFragment();
-    for (let i = 1; i <= TOTAL_GALLERY_IMAGES; i++) {
-      const src = `images/image${i}.jpg`;
-      galleryUrls.push(src);
+if (galleryGrid) {
+  const frag = document.createDocumentFragment();
 
-      const fig = document.createElement('figure');
-      fig.className = 'gallery-item reveal';
-      fig.style.transitionDelay = `${(i % 12) * 40}ms`;
+  for (let i = 1; i <= TOTAL_GALLERY_IMAGES; i++) {
+    const src = `images/image${i}.JPG`;
+    galleryUrls.push(src);
 
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'gallery-item-btn';
-      btn.dataset.index = String(i - 1);
-      btn.setAttribute('aria-label', `View photo ${i} larger`);
+    const fig = document.createElement('figure');
+    fig.className = 'gallery-item reveal';
+    fig.style.transitionDelay = `${(i % 12) * 40}ms`;
 
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = `Sashrika bridal styling — photo ${i}`;
-      img.loading = i <= 8 ? 'eager' : 'lazy';
-      // Hide broken thumbnails gracefully (in case fewer files exist yet)
-      img.addEventListener('error', () => { fig.style.display = 'none'; }, { once: true });
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'gallery-item-btn';
+    btn.dataset.index = String(i - 1);
+    btn.setAttribute('aria-label', `View photo ${i} larger`);
 
-      btn.appendChild(img);
-      fig.appendChild(btn);
-      frag.appendChild(fig);
-    }
-    galleryGrid.appendChild(frag);
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = `Sashrika bridal styling — photo ${i}`;
+    img.loading = i <= 8 ? 'eager' : 'lazy';
+
+    img.addEventListener('error', () => {
+      fig.style.display = 'none';
+    }, { once: true });
+
+    btn.appendChild(img);
+    fig.appendChild(btn);
+    frag.appendChild(fig);
   }
+
+  galleryGrid.appendChild(frag);
+}
+
+  // /* ---------- Build gallery (images/image1.jpg … imageN.jpg) ---------- */
+  // const galleryGrid = document.getElementById('galleryGrid');
+  // const galleryUrls = [];
+
+  // if (galleryGrid) {
+  //   const frag = document.createDocumentFragment();
+  //   for (let i = 1; i <= TOTAL_GALLERY_IMAGES; i++) {
+  //     const src = `images/image${i}.JPG`;
+  //     galleryUrls.push(src);
+
+  //     const fig = document.createElement('figure');
+  //     fig.className = 'gallery-item reveal';
+  //     fig.style.transitionDelay = `${(i % 12) * 40}ms`;
+
+  //     const btn = document.createElement('button');
+  //     btn.type = 'button';
+  //     btn.className = 'gallery-item-btn';
+  //     btn.dataset.index = String(i - 1);
+  //     btn.setAttribute('aria-label', `View photo ${i} larger`);
+
+  //     const img = document.createElement('img');
+  //     img.src = src;
+  //     img.alt = `Sashrika bridal styling — photo ${i}`;
+  //     img.loading = i <= 8 ? 'eager' : 'lazy';
+  //     // Hide broken thumbnails gracefully (in case fewer files exist yet)
+  //     img.addEventListener('error', () => { fig.style.display = 'none'; }, { once: true });
+
+  //     btn.appendChild(img);
+  //     fig.appendChild(btn);
+  //     frag.appendChild(fig);
+  //   }
+  //   galleryGrid.appendChild(frag);
+  // }
 
   /* ---------- Scroll reveal (covers gallery items too) ---------- */
   const revealEls = document.querySelectorAll('.reveal');
